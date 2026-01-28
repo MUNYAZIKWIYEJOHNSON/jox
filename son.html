@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanga Umushinga</title>
+<style>
+:root{
+  --accent:#4e61cc;
+  --bg:#292e41;
+  --card:#ffffff;
+  --text:#2d3436;
+}
+body{
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  margin:0;
+  padding:20px;
+}
+.container{
+  background:var(--card);
+  width:100%;
+  max-width:500px;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+h2{
+  text-align:center;
+  color:var(--accent);
+  margin-bottom:20px;
+}
+label{
+  font-size:15px;
+  font-weight:500;
+  display:block;
+  margin-top:12px;
+}
+input, textarea, select{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border:1.5px solid #dfe6e9;
+  border-radius:8px;
+  font-size:15px;
+  outline:none;
+  transition:0.3s;
+}
+input:focus, textarea:focus, select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 5px rgba(78,97,204,0.2);
+}
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+button{
+  width:100%;
+  background:var(--accent);
+  border:none;
+  padding:14px;
+  color:white;
+  font-size:16px;
+  border-radius:8px;
+  margin-top:20px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+button:hover{
+  opacity:0.85;
+}
+.success{
+  background:#00b894;
+  color:white;
+  padding:12px;
+  text-align:center;
+  border-radius:8px;
+  margin-top:15px;
+  display:none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Submit a Secure Project</h2>
+  <form id="projectForm">
+
+    <label>Your Name</label>
+    <input type="text" id="name" placeholder="Example: Munyazikwiye Johnson" required>
+
+    <label>Your Email</label>
+    <input type="email" id="email" placeholder="example@mail.com" required>
+
+    <label>Email of the person you are sending the project to</label>
+    <input type="email" id="sendToEmail" placeholder="recipient's email" required>
+
+    <label>Project Title</label>
+    <input type="text" id="projectTitle" placeholder="Example: Smart Farm System" required>
+
+    <label>Project Category</label>
+    <select id="category" required>
+      <option value="">-- Select Category --</option>
+      <option>Technology</option>
+      <option>Agriculture</option>
+      <option>Education</option>
+      <option>Health</option>
+      <option>Business</option>
+      <option>Others</option>
+    </select>
+
+    <label>Describe Your Project</label>
+    <textarea id="description" placeholder="Write a detailed description of your project…" required></textarea>
+
+    <label>Budget (RWF)</label>
+    <input type="number" id="budget" placeholder="Example: 500000" required>
+
+    <label>Project Timeline</label>
+    <input type="text" id="timeline" placeholder="Example: 3 months" required>
+
+    <label>Project File (PDF/DOCX)</label>
+    <input type="file" id="fileUpload" accept=".pdf,.docx" required>
+
+    <button type="submit">Submit Project</button>
+  </form>
+
+  <div class="success" id="successMsg">Project submitted successfully! Thank you</div>
+</div>
+<script>
+// Guhuza na server + kubika muri SQLite
+document.getElementById("projectForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const payload = {
+    userEmail: userEmail.value,
+    sendToEmail: sendToEmail.value,
+    projectTitle: projectTitle.value,
+    description: description.value
+  };
+
+  const res = await fetch("http://localhost:3000/submit-project", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify(payload)
+  });
+
+
+  const data = await res.json();
+  if(data.status === "ok"){
+    successMsg.style.display = "block";
+    this.reset();
+  }
+});
+</script>
+
+</body>
+</html>

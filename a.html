@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor – Tanga amakuru</title>
+<style>
+:root{--accent:#4e61cc;}
+body{
+  font-family:Poppins,sans-serif;
+  background:#3e4666;
+  margin:0;padding:20px;
+  display:flex;justify-content:center;align-items:center;height:100vh;
+  animation:fade .6s ease;
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.box{
+  background:#fff;padding:25px;border-radius:12px;width:100%;max-width:420px;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+  animation:slide .5s ease;
+}
+@keyframes slide{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+label{font-size:15px;font-weight:500;display:block;margin-top:12px}
+input{
+  width:100%;padding:12px;border:1.5px solid #ddd;border-radius:8px;margin-top:6px;outline:none;
+  transition:.3s;
+}
+input:focus{border-color:var(--accent);box-shadow:0 0 6px rgba(78,97,204,.18)}
+button{
+  width:100%;padding:13px;background:var(--accent);border:none;color:#fff;border-radius:8px;
+  margin-top:18px;font-weight:600;cursor:pointer;transition:.3s;
+}
+button:hover{opacity:.9;transform:scale(1.02)}
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h3>Investor – Form</h3>
+  <form id="invForm">
+
+    <label>Your Email</label>
+    <input type="email" id="invEmail" placeholder="email" required>
+
+    <label>What do you want to invest in?</label>
+    <input type="text" id="interest" placeholder="example: Farming, Technology..." required>
+
+    <label>Amount you plan to invest (RWF)</label>
+    <input type="number" id="amount" placeholder="example: 200000" required>
+
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+document.getElementById("invForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("Murakoze! amakuru yawe yakiriwe neza.");
+  this.reset();
+});
+</script>
+
+</body>
+</html>
